@@ -3,19 +3,21 @@ public:
     int timeRequiredToBuy(vector<int>& tickets, int k) {
         queue<int> q;
         int tno = tickets.size();
+        
+        int tickets2Buy = tickets[k];
+        int timeNeeded = 0;
+        
+
         for(int idx=0; idx<tno; idx++){
-            q.push(idx);
+            int curr = tickets[idx];
+            if(idx<=k){
+                timeNeeded+=min(tickets2Buy,curr);
+            }
+            else{
+                timeNeeded+=min(curr,tickets2Buy-1);
+            }
         }
 
-        int timeNeeded = 0;
-        while(!q.empty()){
-            timeNeeded++;
-            int front = q.front();
-            q.pop();
-            tickets[front]--;
-            if(tickets[front]>0) q.push(front);
-            if(tickets[k]==0) return timeNeeded;
-        }
         return timeNeeded;
     }
 };
