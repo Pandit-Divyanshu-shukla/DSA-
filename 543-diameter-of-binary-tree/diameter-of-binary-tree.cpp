@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    int depth(TreeNode* root){
-        if(!root) return 0;
+    pair<int,int> diameter(TreeNode* root) {
+        
+        if(!root) return  make_pair(0,0);
 
-        int leftDepth = depth(root->left);
-        int rightDepth = depth(root->right);
+        // Diameter, Height
+        pair<int,int> leftInfo = diameter(root->left); //LD,LH
+        pair<int,int> rightInfo = diameter(root->right); //RD,RH
 
-        return 1 + max(leftDepth , rightDepth);
+        int finalHt = max(leftInfo.second, rightInfo.second) + 1;
+        int diaThroughRoot = leftInfo.second + rightInfo.second;
+
+        int dia = max(max(leftInfo.first, rightInfo.first), diaThroughRoot);
+
+        return {dia,finalHt};
     }
+
     int diameterOfBinaryTree(TreeNode* root) {
-        
-        if(!root) return 0;
-        
-        int rootDim = depth(root->left) + depth(root->right);
-
-        int leftDim = diameterOfBinaryTree(root->left);
-        int rightDim = diameterOfBinaryTree(root->right);
-
-        return max(rootDim, max(leftDim,rightDim));
+        return diameter(root).first;
     }
 };
