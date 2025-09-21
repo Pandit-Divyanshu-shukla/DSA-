@@ -16,10 +16,10 @@ public:
             return "N";
         }
 
-        string leftPath = helper(root->left, subTrees, ans);
-        string rightPath = helper(root->right, subTrees, ans);
+        // string leftPath = helper(root->left, subTrees, ans);
+        // string rightPath = helper(root->right, subTrees, ans);
 
-        string fullPath = to_string(root->val) + "," + leftPath + "," + rightPath;
+        string fullPath = to_string(root->val) + "," + helper(root->left, subTrees, ans) + "," + helper(root->right, subTrees, ans);;
 
         subTrees[fullPath]++;
         if(subTrees[fullPath]==2){
