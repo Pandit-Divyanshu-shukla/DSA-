@@ -21,16 +21,17 @@ public:
         bool reverseLevel = false;
         while(!q.empty()){
             int size = q.size();
-            vector<int> currLevel(size);
-
-            for(int i=0; i<size; i++){
-                TreeNode* node = q.front(); q.pop();
-
-                int idx = !reverseLevel ? i : (size-i-1);
-                currLevel[idx] = node->val;
-                
+            vector<int> currLevel;
+            while(size){
+                TreeNode* node = q.front();
+                currLevel.push_back(node->val);
+                q.pop();
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
+                size--;
+            }
+            if(reverseLevel){
+                reverse(currLevel.begin(), currLevel.end());
             }
             reverseLevel = !reverseLevel;
             ans.push_back(currLevel);
