@@ -11,33 +11,24 @@
  */
 class Solution {
 public:
-    TreeNode* Pre(TreeNode* root){
-        TreeNode* curr = root->left;
-        while(curr->right && curr->right != root){
-            curr = curr->right;
-        }
-        return curr;
-    }
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> MIT;
-        TreeNode* curr = root;
-        while(curr){
-            if(curr->left == nullptr){ MIT.push_back(curr->val);
-            curr = curr->right;}
-            else{
-                TreeNode* IP = Pre(curr);
-                if(!IP->right){
-                    IP->right = curr;
-                    curr = curr->left;
-                }
-                else{
-                    IP->right = NULL;
-                    MIT.push_back(curr->val);
-                    curr = curr->right;
-                }
+        stack<TreeNode*> st;
+        // st.push(root);
+        vector<int> ans;
 
+        TreeNode* curr = root;
+        while(curr || !st.empty()){
+            while(curr){
+                st.push(curr);
+                curr = curr->left;
             }
+            
+            TreeNode* top = st.top();
+            st.pop();
+
+            ans.push_back(top->val);
+            curr = top->right;
         }
-        return MIT;
+        return ans;
     }
 };
