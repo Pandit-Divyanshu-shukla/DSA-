@@ -17,22 +17,27 @@ public:
             return ans;
         }
         
-        stack<TreeNode*> left;
-        stack<TreeNode*> right;
+        stack<TreeNode*> st;
+        TreeNode* lastVisitedNode = nullptr;
 
-        left.push(root);
-        
-        while(!left.empty()){
-            TreeNode* curr = left.top(); left.pop();
-            right.push(curr);
+        TreeNode* curr = root;
 
-            if(curr->left) left.push(curr->left);
-            if(curr->right) left.push(curr->right);
-        }
-
-        while(!right.empty()){
-            ans.push_back(right.top()->val);
-            right.pop();
+        while(curr || !st.empty()){
+            if(curr){
+                st.push(curr);
+                curr = curr->left;
+            }
+            else{
+                TreeNode* top = st.top();
+                if(top->right == nullptr || top->right == lastVisitedNode){
+                    ans.push_back(top->val);
+                    st.pop();
+                    lastVisitedNode = top;
+                }
+                else{
+                    curr = top->right;
+                }
+            }
         }
 
         return ans;
