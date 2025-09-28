@@ -11,26 +11,30 @@
  */
 class Solution {
 public:
-
-    TreeNode* buildTreeHelper(vector<int>& preorder, vector<int>& inorder, int &preIdx, int left, int right, unordered_map<int,int>& mp) {
+    TreeNode* helper(vector<int>& preorder,int &idx, int left, int right, unordered_map<int,int>& mp){
         if(left>right){
             return nullptr;
         }
-        TreeNode* root = new TreeNode (preorder[preIdx]);
-        int inIdx = mp[preorder[preIdx]];
-        preIdx++;
+        // curr node ko node bana
+        TreeNode* node = new TreeNode(preorder[idx]);
+        //phir uska left aur right subtree find kar
+        int inIdx = mp[preorder[idx]];
+        idx++;
 
-        root->left = buildTreeHelper(preorder,inorder,preIdx,left,inIdx-1,mp);
-        root->right = buildTreeHelper(preorder,inorder,preIdx,inIdx+1,right,mp);
+        //phir pehle left tree bana phir right
+        // left tree inidx-1 tak hi hoga
+        node->left = helper(preorder,idx,left,inIdx-1,mp);
+        // phir right bana jo ki inidx+1 se hi hoga
+        node->right = helper(preorder,idx,inIdx+1, right, mp);
 
-        return root;
+        return node;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int preIdx = 0;
         unordered_map<int,int> mp;
         for(int i=0; i<inorder.size(); i++){
             mp[inorder[i]] = i;
         }
-        return buildTreeHelper(preorder,inorder,preIdx,0,preorder.size()-1,mp);
+        int idx = 0;
+        return helper(preorder,idx,0,preorder.size()-1,mp);
     }
 };
