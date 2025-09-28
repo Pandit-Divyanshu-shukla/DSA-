@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* BTH(vector<int>& inorder, vector<int>& postorder,int &postIdx,int left, int right, unordered_map<int,int> &mp){
+    TreeNode* BTH(vector<int>& postorder,int &postIdx,int left, int right, unordered_map<int,int> &mp){
         if(left>right){
             return nullptr;
         }
@@ -20,8 +20,8 @@ public:
         postIdx--;
 
         
-        root->right = BTH(inorder,postorder,postIdx,inIdx+1,right,mp);
-        root->left = BTH(inorder,postorder,postIdx,left,inIdx-1,mp);
+        root->right = BTH(postorder,postIdx,inIdx+1,right,mp);
+        root->left = BTH(postorder,postIdx,left,inIdx-1,mp);
         
 
         return root;
@@ -32,6 +32,6 @@ public:
         for(int i=0; i<inorder.size(); i++){
             mp[inorder[i]] = i;
         }
-        return BTH(inorder,postorder,postIdx,0,postorder.size() - 1,mp);
+        return BTH(postorder,postIdx,0,postorder.size() - 1,mp);
     }
 };
