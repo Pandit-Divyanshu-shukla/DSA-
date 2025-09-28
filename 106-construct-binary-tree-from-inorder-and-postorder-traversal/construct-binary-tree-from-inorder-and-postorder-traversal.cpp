@@ -19,10 +19,8 @@ public:
         int inIdx = mp[postorder[postIdx]];
         postIdx--;
 
-        
         root->right = BTH(postorder,postIdx,inIdx+1,right,mp);
         root->left = BTH(postorder,postIdx,left,inIdx-1,mp);
-        
 
         return root;
     }
