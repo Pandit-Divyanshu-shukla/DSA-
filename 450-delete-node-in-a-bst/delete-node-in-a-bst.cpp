@@ -11,51 +11,41 @@
  */
 class Solution {
 public:
-    TreeNode* IS(TreeNode* root){
-        if(!root) return nullptr;
-        while(root->left){
-            root = root->left;
+    TreeNode* IP(TreeNode* root){
+        while(root->right){
+            root = root->right;
         }
         return root;
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(!root){
-            return nullptr;
-        }
-        if(key>root->val){
-            root->right = deleteNode(root->right,key);
-        }
-        else if(key<root->val){
+        if(!root) return nullptr;
+        if(root->val>key){
             root->left = deleteNode(root->left,key);
         }
+        else if(root->val<key){
+            root->right = deleteNode(root->right,key);
+        }
         else{
-            //root==key
 
-            TreeNode* left = root->left;
-            TreeNode* right = root->right;
+            TreeNode* l = root->left;
+            TreeNode* r = root->right;
 
-            // Case 1 : 0 child
-            if(!left && !right){
+            if(!l && !r){
                 delete root;
                 return nullptr;
             }
 
-            //Case 2 : 1 child
-            if(!left && right){
-                return right;
+            if((!l && r) || (l && !r)){
+                return (!l) ? r : l; 
             }
 
-            if(left && !right){
-                return left;
-            }
+            TreeNode* pred = IP(root->left);
+            root->val = pred->val;
+            root->left = deleteNode(root->left,pred->val);
 
-            //Case 2 : 2 Child
-            TreeNode* succ = IS(root->right);
-            root->val = succ->val;
-            root->right = deleteNode(root->right,succ->val);
-            // delete succ;
+            return root;
 
-            }
+        }
         return root;
     }
 };
