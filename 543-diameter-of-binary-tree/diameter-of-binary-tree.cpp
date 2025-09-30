@@ -10,25 +10,17 @@
  * };
  */
 class Solution {
-public:
-    int ans;
-    pair<int,int> diameterfBinaryTree(TreeNode* root) {
-        
-        if(!root) return {0,0};
-        pair<int,int> leftD = diameterfBinaryTree(root->left);
-        pair<int,int> rightD = diameterfBinaryTree(root->right);
-
-        int rootD = leftD.first + rightD.first;
-        int currH = 1 + max(leftD.first,rightD.first);  
-
-        int currD = max(max(rootD,leftD.second),rightD.second);
-        ans = currD;
-
-        return {currH, currD};
+    int helper(TreeNode* root, int &maxDiameter){
+        if(!root)return 0;
+        int leftHeight = helper(root->left,maxDiameter);
+        int rightHeight = helper(root->right,maxDiameter);
+        maxDiameter = max((leftHeight+rightHeight),maxDiameter);
+        return max(leftHeight,rightHeight)+1;
     }
+public:
     int diameterOfBinaryTree(TreeNode* root) {
-        diameterfBinaryTree(root);
-        return ans;
-        
+        int maxDiameter = INT_MIN;
+        int height =  helper(root,maxDiameter);
+        return maxDiameter;
     }
 };
