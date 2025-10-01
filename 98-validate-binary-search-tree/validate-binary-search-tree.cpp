@@ -10,16 +10,19 @@
  * };
  */
 class Solution {
-public:
-    bool valiDate(TreeNode* root, long minVal, long maxVal){
-        if(!root){
-            return true;
-        }
-        if(root->val<=minVal || root->val>=maxVal) return false;
+public: 
+    bool validate(TreeNode* root, TreeNode* min, TreeNode* max){
+        if(!root) return true;
 
-        return valiDate(root->left,minVal, root->val) && valiDate(root->right,root->val,maxVal);
+        if((min && root->val <= min->val) || (max && root->val >= max->val)){
+            return false;
+        }
+
+        return validate(root->left,min,root) && validate(root->right,root,max);
     }
     bool isValidBST(TreeNode* root) {
-        return valiDate(root,LONG_MIN,LONG_MAX);
+        TreeNode* min = nullptr;
+        TreeNode* max = nullptr;
+        return validate(root,min,max);
     }
 };
