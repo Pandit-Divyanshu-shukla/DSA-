@@ -18,27 +18,37 @@ class Solution {
     int maxSize = 0;
     vector<int> info(Node* root){
         if(!root){
-            return {1,INT_MAX,INT_MIN,0};
+            // validate hnn hai
+            // max of left -> int min
+            // min of right -> int max
+            // size of current -> nhi h node isilye 0
+            return {1,INT_MIN,INT_MAX,0};
         }
+        
         vector<int> leftInfo = info(root->left);
         vector<int> rightInfo = info(root->right);
         
         vector<int> info(4,0);
         
-        if(leftInfo[0] && rightInfo[0] && root->data > leftInfo[2] && root->data < rightInfo[1]){
-            info[0] = 1;
-            info[1] = min(root->data, min(leftInfo[1],rightInfo[1]));
-            info[2] = max(root->data, max(leftInfo[2],rightInfo[2]));
-            info[3] = 1 + leftInfo[3] + rightInfo[3];
+        Node* currNode = root;
+        
+        // if currnode is in range and left and right both valid 
+        // Then give the updated values of Current Node
+        // i.e Valid, max of left, min of right, and size of current Node resp
+        
+        if(leftInfo[0] && rightInfo[0] && leftInfo[1] < currNode->data && 
+        currNode->data < rightInfo[2]){
+            // Valid
+            info[0]=1;
+            info[1] = max(currNode->data,max(leftInfo[1],rightInfo[1]));
+            info[2] = min(currNode->data,min(leftInfo[2],rightInfo[2]));
+            info[3] = 1 + leftInfo[3] + rightInfo[3]; 
         }
         else{
-            info[0] = 0;
-            info[1] = INT_MAX;
-            info[2] = INT_MIN;
-            info[3] = 0;
+            info = {0,INT_MIN,INT_MAX,0}; 
         }
         
-        maxSize = max(info[3],maxSize);
+        maxSize = max(maxSize,info[3]);
         
         return info;
     }
