@@ -11,29 +11,19 @@
  */
 class Solution {
 public:
-    bool search(TreeNode* root, TreeNode* curr, int target){
-        if(!root) return false;
-        if(root != curr && root->val == target){
-            return true;
-        }
-        if(target<root->val){
-            return search(root->left,curr,target);
-        }
-        else{
-            return search(root->right,curr,target);
-        }
-        
-    }
-    bool helper(TreeNode* root, TreeNode* mainRoot, int k){
+
+    bool helper(TreeNode* root, int k, unordered_set<int>& seen){
         if(!root) return false;
         int target = k - root->val;
-        bool found = search(mainRoot,root,target);
+        
+        if(seen.count(target)) return true;
 
-        if(found) return true;
+        seen.insert(root->val);
  
-        return helper(root->left,mainRoot, k) || helper(root->right,mainRoot, k);
+        return helper(root->left,k,seen) || helper(root->right,k,seen);
     }
     bool findTarget(TreeNode* root, int k) {
-        return helper(root,root,k);
+        unordered_set<int> seen;
+        return helper(root,k,seen);
     }
 };
