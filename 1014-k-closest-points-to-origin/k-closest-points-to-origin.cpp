@@ -6,16 +6,16 @@ public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
         priority_queue<Node> pq;
         vector<vector<int>> res;
-        for(auto pnt: points){
+        for(auto pnt: points){  // O(n)
             int x = pnt[0];
             int y = pnt[1];
 
             int dist_sq = x*x + y*y;
 
-            pq.push({dist_sq,{x,y}});
+            pq.push({dist_sq,{x,y}}); // LOG(K)
 
             if(pq.size()>k){
-                pq.pop();
+                pq.pop(); // log(k)
             }
         }
 
