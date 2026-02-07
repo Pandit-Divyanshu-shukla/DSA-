@@ -4,7 +4,7 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        priority_queue<Node,vector<Node>,greater<Node>> pq;
+        priority_queue<Node> pq;
         vector<vector<int>> res;
         for(auto pnt: points){
             int x = pnt[0];
@@ -13,6 +13,10 @@ public:
             int dist_sq = x*x + y*y;
 
             pq.push({dist_sq,{x,y}});
+
+            if(pq.size()>k){
+                pq.pop();
+            }
         }
 
         while(k){
