@@ -28,7 +28,6 @@ public:
             max_wndw.push_back(nums[dq.front()]);
         }
 
-        // max_wndw.push_back(nums[dq.front()]);
         return max_wndw;
     }
 };
