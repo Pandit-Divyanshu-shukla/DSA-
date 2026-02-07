@@ -1,30 +1,33 @@
 #define pii pair<int,int>
 #define Node pair<int,pii>
+
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        vector<vector<int>> res;
-
         priority_queue<Node,vector<Node>,greater<Node>> pq;
-        for(auto& p : points){
-            int x = p[0];
-            int y = p[1];
+        vector<vector<int>> res;
+        for(auto pnt: points){
+            int x = pnt[0];
+            int y = pnt[1];
 
             int dist_sq = x*x + y*y;
+
             pq.push({dist_sq,{x,y}});
         }
 
         while(k){
-            vector<int> point;
-            int x = pq.top().second.first;
-            point.push_back(x);
-            int y = pq.top().second.second;
-            point.push_back(y);
+            vector<int> tp_Node;
+            int p1 = pq.top().second.first;
+            tp_Node.push_back(p1);
+            int p2 = pq.top().second.second;
+            tp_Node.push_back(p2);
+
             pq.pop();
-            
-            res.push_back(point);
+
+            res.push_back(tp_Node);
             k--;
         }
+
         return res;
     }
 };
