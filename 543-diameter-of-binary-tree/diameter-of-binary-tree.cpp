@@ -9,18 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+#define pii pair<int,int>
 class Solution {
-    int helper(TreeNode* root, int &maxDiameter){
-        if(!root)return 0;
-        int leftHeight = helper(root->left,maxDiameter);
-        int rightHeight = helper(root->right,maxDiameter);
-        maxDiameter = max((leftHeight+rightHeight),maxDiameter);
-        return max(leftHeight,rightHeight)+1;
+
+    pii diameter(TreeNode* root){
+        if(!root) return {0,0};
+
+        pii left = diameter(root->left);
+        pii right = diameter(root->right);
+
+        int leftHeight = left.first;
+        int leftDiameter = left.second;
+
+        int rightHeight = right.first;
+        int rightDiameter = right.second;
+
+        int rootDiameter = leftHeight + rightHeight ;
+        int currHeight = max(leftHeight,rightHeight) + 1;
+
+        int currDiameter = max(rootDiameter,max(leftDiameter,rightDiameter));
+
+        return {currHeight,currDiameter};
     }
+    
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int maxDiameter = INT_MIN;
-        int height =  helper(root,maxDiameter);
-        return maxDiameter;
+        return diameter(root).second;
     }
 };
