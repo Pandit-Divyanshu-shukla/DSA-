@@ -1,72 +1,28 @@
+#include <unordered_map>
 class Solution {
 public:
-    struct Node{
-        bool endOfWord;
+    int t[301];
+    bool solve(string& s, int idx, unordered_map<string,bool> &mp){
 
-        unordered_map <char,Node*> children;
+        if(idx == s.size() || mp.count(s.substr(idx))) return true;
 
-        Node(){
-            endOfWord = false;
-        }
-    };
-    struct Trie{
-        Node* root;
+        if(t[idx]!=-1) return t[idx];
 
-        Trie(){
-            root = new Node();
-        }
-        void insert(string key){
-            Node* temp = root;
-            for(int i=0; i<key.size(); i++){
-                if(temp->children.count(key[i])==0){
-                    temp->children[key[i]] = new Node();
-                }
-                temp = temp->children[key[i]];
-            }
-            temp->endOfWord = true;
-        }
+        for(int len=1; idx+len<=s.size(); len++){
+            string left = s.substr(idx,len);
 
-        bool search(string key){
-            Node* temp = root;
-            for(int i=0; i<key.size(); i++){
-                if(temp->children.count(key[i])==0){
-                    return false;
-                }
-                temp = temp->children[key[i]];
-            }
-            return temp->endOfWord;
-        }
-    };
-
-    bool isFound(string s, Trie& trie, unordered_map<string, bool>& dp){ //O(2^n)
-        if(dp.count(s)) return dp[s];
-        
-        if(s.size()==0){
-            return true;
-        }
-        for(int i=0; i<s.size(); i++){ //O(n)
-
-            string left = s.substr(0,i+1); //O(n)
-            string right = s.substr(i+1);
-
-            if(trie.search(left)){
-                if(isFound(right,trie,dp)){
-                    dp[s] = true;
-                    return true;
-                }
+            if(mp.count(left) && solve(s,idx+len,mp)){
+                return t[idx] = true;
             }
         }
-        dp[s]=false;
-        return false;
+        return t[idx] = false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
-        Trie trie;
-        string key = s;
-        Node* temp = trie.root;
-        unordered_map<string, bool> dp;
-        for(string &st: wordDict){
-            trie.insert(st);
+        memset(t,-1,sizeof(t));
+        unordered_map<string,bool> mp;
+        for(string word : wordDict){
+            mp[word] = 1; 
         }
-        return isFound(s,trie,dp);
+        return solve(s,0,mp);
     }
 };
