@@ -1,11 +1,10 @@
-class Node {
+class Node{
 public:
-    unordered_map <char,Node*> children;
-    bool EOW;
-    Node() {
-        EOW = false;
+    bool endOfWord;
+    unordered_map<char,Node*> children;
+    Node(){
+        endOfWord = false;
     }
-
 };
 class Trie {
 public:
@@ -22,7 +21,7 @@ public:
             }
             temp = temp->children[word[i]];
         }
-        temp->EOW = true;
+        temp->endOfWord = true;
     }
     
     bool search(string word) {
@@ -33,7 +32,7 @@ public:
             }
             temp = temp->children[word[i]];
         }
-        return temp->EOW;
+        return temp->endOfWord;
     }
     
     bool startsWith(string prefix) {
