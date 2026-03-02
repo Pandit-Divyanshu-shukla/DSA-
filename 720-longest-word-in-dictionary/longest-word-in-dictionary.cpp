@@ -37,22 +37,22 @@ public:
         return temp->EOW;
     }
     
-    void solve(Node* root, string& ans, string& temp){
+    void solve(Node* root, string &ans, string &temp){
         for(auto &it: root->children){
             if(it.second->EOW){
-                temp.push_back(it.first);
+                temp += it.first;
                 if(temp.size()>ans.size()){
                     ans = temp;
-                }
-                else if(temp.size()==ans.size()){
+                }else if(temp.size()==ans.size()){
                     ans = temp<ans ? temp : ans;
                 }
                 solve(it.second,ans,temp);
                 temp.pop_back();
             }
         }
-        
     }
+        
+    
 };
 class Solution {
   public:
@@ -62,9 +62,10 @@ class Solution {
         for(string &st: words){
             trie.insert(st);
         }
+        
         string ans = "";
         string temp = "";
-        trie.solve(trie.root,ans, temp);
+        trie.solve(trie.root,ans,temp);
         
         return ans;
         
