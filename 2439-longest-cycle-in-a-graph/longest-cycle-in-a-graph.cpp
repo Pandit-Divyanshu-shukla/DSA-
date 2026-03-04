@@ -13,7 +13,7 @@ public:
                 depth[neighbour] = depth[src] + 1;
                 dfs(neighbour,visited,depth,adj,recP,maxLen);
             }
-        else if(recP[neighbour] && depth[src]>depth[neighbour]){
+        else if(recP[neighbour]){
                 //cycle
                 maxLen = max(maxLen,depth[src]-depth[neighbour]+1);
             }
