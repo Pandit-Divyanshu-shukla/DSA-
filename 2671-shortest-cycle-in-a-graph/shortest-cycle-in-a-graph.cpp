@@ -15,7 +15,6 @@ public:
 
             vector<bool>visited(n,false);
             vector<int> depth(n,0);
-            // vector<int> parent(n,-1);
 
             if(!visited[src]){
                 queue<pii> q;
