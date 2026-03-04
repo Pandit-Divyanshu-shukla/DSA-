@@ -2,12 +2,8 @@
 class Solution {
 public:
     bool isBipartite(vector<vector<int>>& graph) {
-
-        
-
         int s = graph.size();
 
-        
         vector<bool> visited(graph.size(),false);
         vector<bool> color(graph.size());
 
@@ -16,24 +12,24 @@ public:
         for(int i=0; i<s; i++){
         
             bool c = 0;
-            pii src = {i,c};
+            int src = i;
             if(!visited[i]){
-                queue<pii> q;
+                queue<int> q;
                 q.push(src);
 
-                visited[src.first] = true;
-                color[src.first] = c;
+                visited[src] = true;
+                color[src] = c;
 
                 while(!q.empty()){
-                    pii node = q.front(); q.pop();
-                    bool col = node.second;
+                    int node = q.front(); q.pop();
+                    bool col = color[node];
 
-                    for(int v: graph[node.first]){
+                    for(int v: graph[node]){
                         if(!visited[v]){
-                            q.push({v,!col});
+                            q.push(v);
                             visited[v] = true;
                             color[v] = !col;
-                        } else if(col == color[v]) return false;
+                        } else if(color[node] == color[v]) return false;
                     } 
                 }
                 
