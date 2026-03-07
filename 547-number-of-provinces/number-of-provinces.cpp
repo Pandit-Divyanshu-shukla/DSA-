@@ -14,11 +14,11 @@ public:
             }
         }
 
-        int cnt = 0;
+        int provinces = 0;
 
         for(int i=0; i<n; i++){
             if(!vis[i]){
-                cnt++;
+                provinces++;
                 queue<int> q;
                 q.push(i);
                 vis[i]=true;
@@ -35,6 +35,6 @@ public:
             }
         }
 
-        return cnt;
+        return provinces;
     }
 };
