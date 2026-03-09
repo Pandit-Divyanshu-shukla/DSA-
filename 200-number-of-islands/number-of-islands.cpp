@@ -2,12 +2,11 @@ class Solution {
 public:
     
     void dfs(vector<vector<bool>> &vis, int i, int j,vector<vector<char>>& grid){
-        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size()) return;
+        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size() || vis[i][j] || grid[i][j]=='0') return;
 
-        if(vis[i][j] || grid[i][j]=='0') return;
 
         vis[i][j] = true;
-        
+
         dfs(vis,i,j+1,grid);
         dfs(vis,i+1,j,grid);
         dfs(vis,i,j-1,grid);
