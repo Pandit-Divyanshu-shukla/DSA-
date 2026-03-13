@@ -37,11 +37,20 @@ public:
             int time = info[2];
 
             minutes = max(minutes,time);
-            
-            if(r-1>=0 && !vis[r-1][c] && grid[r-1][c]==1){ vis[r-1][c] = true; q.push({r-1,c,time+1}); fresh--;}
-            if(r+1<grid.size() && !vis[r+1][c]  && grid[r+1][c]==1){ vis[r+1][c] = true;q.push({r+1,c,time+1}); fresh--;} 
-            if(c+1<grid[0].size() && !vis[r][c+1] &&  grid[r][c+1]==1){ vis[r][c+1] = true;q.push({r,c+1,time+1}); fresh--;} 
-            if(c-1>=0 && !vis[r][c-1] && grid[r][c-1]==1){ vis[r][c-1] = true;q.push({r,c-1,time+1}); fresh--;} 
+
+            int dr[4] = {-1,1,0,0};
+            int dc[4] = {0,0,-1,1};
+
+            for(int k=0; k<4; k++){
+                int nr = r + dr[k];
+                int nc = c + dc[k];
+
+                if(nr>=0 && nr<m && nc>=0 && nc<n && !vis[nr][nc] && grid[nr][nc]==1){
+                    vis[nr][nc] = true;
+                    q.push({nr,nc,time+1});
+                    fresh--;
+                }
+            }
       
         }
 
