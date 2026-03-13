@@ -1,11 +1,18 @@
 class Solution {
 public:
     string removeOccurrences(string s, string part) {
-        while(s.find(part) != string :: npos){
-            int pos = s.find(part);
-            s.erase(pos,part.length());
+        string res;
+        
+        for(char ch: s){
+            res.push_back(ch);
+
+            int subStrPos = res.size() - part.size();
+
+            if(res.size()>=part.size() && res.substr(subStrPos)==part){
+                res.erase(subStrPos,part.length());
+            }
         }
 
-        return s;
+        return res;
     }
 };
