@@ -1,19 +1,13 @@
 int missingNumber(int* nums, int numsSize) {
     
-    int *count = (int*) calloc(numsSize+1,sizeof(int));
-
-    int ans = -1;
+    int xor = numsSize;
 
     for(int i=0; i<numsSize; i++){
-        count[nums[i]]++;
+        xor = xor ^ i ^ nums[i];
     }
 
-    for(int i=0; i<=numsSize; i++){
-        if(!count[i]){
-            ans= i;
-        }
-    }
 
-    return ans;
+
+    return xor;
 
 }
