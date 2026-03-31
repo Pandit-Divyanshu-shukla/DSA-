@@ -12,7 +12,10 @@ public:
             return dp[i][j] = solve(w1,w2,i-1,j-1,dp);
         }else{
             // one operation + min(insert, delete or replace in string 1)
-            return dp[i][j] = 1 + min(solve(w1,w2,i,j-1,dp),min(solve(w1,w2,i-1,j,dp),solve(w1,w2,i-1,j-1,dp)));
+            int insertOp = solve(w1,w2,i,j-1,dp);
+            int deleteOp = solve(w1,w2,i-1,j,dp);
+            int replaceOp = solve(w1,w2,i-1,j-1,dp);
+            return dp[i][j] = 1 + min({insertOp,deleteOp,replaceOp});
         }
 
     }
