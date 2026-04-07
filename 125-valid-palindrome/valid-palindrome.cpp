@@ -13,13 +13,12 @@ public:
                 end--;
                 continue;
             }
-            
-            if(isalnum(s[st]) && isalnum(s[end])){
-                cout<<s[st]<<" "<<s[end]<<endl;
-                if(tolower(s[st])!=tolower(s[end])){
-                    return false;
-                }
+
+            if(tolower(s[st])!=tolower(s[end])){
+                return false;
             }
+            
+                
             st++;
             end--;
             
