@@ -1,29 +1,28 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        
-
-        string str = "";
-
-        for(char ch: s){
-            ch = tolower(ch);
-            if(isalnum(ch)){
-                str+=ch;
-            }
-        }
-
-        cout<<str<<endl;
-
         int st = 0;
-        int end = str.length()-1;
+        int end = s.length()-1;
 
         while(st<=end){
-            cout<<str[st]<<" "<<str[end]<<endl;
-            if(str[st]!=str[end]){
-                return false;
+            if(!isalnum(s[st])){
+                st++;
+                continue;
+            }
+            if(!isalnum(s[end])){
+                end--;
+                continue;
+            }
+            
+            if(isalnum(s[st]) && isalnum(s[end])){
+                cout<<s[st]<<" "<<s[end]<<endl;
+                if(tolower(s[st])!=tolower(s[end])){
+                    return false;
+                }
             }
             st++;
             end--;
+            
         }
 
         // cout<<str<<endl;
