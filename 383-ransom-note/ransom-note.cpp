@@ -8,7 +8,7 @@ public:
         }
 
         for(char ch: magazine){
-            if(mp.count(ch)!=0){
+            if(mp[ch]>0){
                 mp[ch]--;
             }
         }
