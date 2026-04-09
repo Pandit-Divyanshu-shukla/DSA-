@@ -7,7 +7,7 @@ public:
         for(int i=0; i<strs[0].size(); i++){
             char curr = strs[0][i];
             for(int j=1; j<strs.size(); j++){
-                if(curr!=strs[j][i]){
+                if(strs[j].size()<i || curr!=strs[j][i]){
                     isPrsnt = false;
                 }
             }
