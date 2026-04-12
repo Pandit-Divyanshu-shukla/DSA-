@@ -13,10 +13,6 @@ public:
             right[n-i-1] = max(right[n-i],height[n-i]);
         }
 
-        for(int i=0; i<n; i++){
-            cout<<height[i]<<"->"<<left[i]<<" "<<right[i]<<endl;
-        }
-
         for(int idx=1; idx<n-1; idx++){
             if(height[idx]>min(left[idx],right[idx])) continue;
             totalWater += min(left[idx],right[idx])-height[idx];
