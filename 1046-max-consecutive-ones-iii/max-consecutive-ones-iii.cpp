@@ -8,16 +8,15 @@ public:
 
         while(r<nums.size()){
             if(nums[r]==0){
-                    countZeros++;
+                countZeros++;
+            }
+            if(countZeros>k){
+                if(nums[l]==0){
+                    countZeros--;
                 }
-                if(countZeros>k){
-                    if(nums[l]==0){
-                        countZeros--;
-                    }
-                    l++;
-                    
-                }
-                maxLength = max(maxLength,r-l+1);
+                l++; 
+            }
+            maxLength = max(maxLength,r-l+1);
             r++;
         }
 
