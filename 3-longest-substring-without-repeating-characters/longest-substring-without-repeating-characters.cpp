@@ -12,12 +12,10 @@ public:
         while(r<n){
             if(mp.count(s[r]) && mp[s[r]]>=l){
                 l = mp[s[r]]+1;
-                mp[s[r]] = r;
-                // maxLength = max(maxLength,r-l+1);
             }else{
-                mp[s[r]] = r;
                 maxLength = max(maxLength,r-l+1);
             }
+            mp[s[r]] = r;
             r+=1;
         }
 
