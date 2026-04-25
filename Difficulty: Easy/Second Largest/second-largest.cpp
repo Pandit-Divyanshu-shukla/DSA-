@@ -10,11 +10,8 @@ class Solution {
                 s_mx = mx;
                 mx = arr[i];
             }
-            else if(arr[i]<mx){
-                if(arr[i]>s_mx){
-                    s_mx = arr[i];
-                }
-                
+            if(arr[i]>s_mx && arr[i]<mx){
+                s_mx = arr[i];
             }
         }
         
