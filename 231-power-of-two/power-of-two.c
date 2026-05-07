@@ -1,5 +1,7 @@
 bool isPowerOfTwo(int n) {
-    long no = n;
-    if(no==0) return false;
-    return (no & no-1) == 0 ? true : false;
+    long n0 = n;
+    if(n0==0) return false;
+    long long bitMask = n0-1;
+    if(n0&(bitMask))return false;
+    return true;
 }
