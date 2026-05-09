@@ -9,9 +9,6 @@ bool isAnagram(char* s, char* t) {
 
     for(int i=0; i<strlen(s); i++){
         freqS[s[i]-'a']++;
-    }
-
-    for(int i=0; i<strlen(t); i++){
         freqS[t[i]-'a']--;
     }
 
