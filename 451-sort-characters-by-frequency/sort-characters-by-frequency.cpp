@@ -3,21 +3,24 @@ class Solution {
 public:
     string frequencySort(string s) {
         unordered_map<char,int> mp;
-        vector<pic> vec;
+
+        string ans = "";
+
         for(char ch: s){
             mp[ch]++;
         }
 
+        vector<pic> vec;
         for(auto &p: mp){
             vec.push_back({p.second,p.first});
         }
 
-        sort(vec.begin(),vec.end(),greater<pic>());
+        sort(vec.begin(), vec.end(), greater<pic>());
 
-        string ans = "";
-        for(auto &p : vec){
-            while(p.first--){
-                ans+=p.second;
+        for(auto &it: vec){
+            while(it.first){
+                ans+=it.second;
+                it.first--;
             }
         }
 
