@@ -4,10 +4,6 @@ public:
     int beauty(string s){
         int freq[26] = {0};
 
-        // for(int i=0; i<26; i++){
-        //     freq[i]=0;
-        // }
-
         for(char ch: s){
             freq[ch-'a']++;
         }
@@ -29,9 +25,12 @@ public:
     }
     int beautySum(string s) {
         int ans = 0;
+        
         for(int i=0; i<s.length(); i++){
+            string sub="";
             for(int j=i; j<s.length(); j++){
-                ans+= beauty(s.substr(i,j-i+1));
+                sub+=s[j];
+                ans+= beauty(sub);
             }
         }
 
