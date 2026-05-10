@@ -1,12 +1,7 @@
 class Solution {
 public:
     
-    int beauty(string s){
-        int freq[26] = {0};
-
-        for(char ch: s){
-            freq[ch-'a']++;
-        }
+    int beauty(int freq[]){
 
         int minFreq = INT_MAX;
         int maxFreq = INT_MIN;
@@ -28,9 +23,11 @@ public:
         
         for(int i=0; i<s.length(); i++){
             string sub="";
+            int freq[26] = {0};
             for(int j=i; j<s.length(); j++){
-                sub+=s[j];
-                ans+= beauty(sub);
+                freq[s[j]-'a']++;
+                // sub+=s[j];
+                ans+= beauty(freq);
             }
         }
 
