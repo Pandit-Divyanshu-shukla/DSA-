@@ -2,11 +2,11 @@ class Solution {
 public:
     
     int beauty(string s){
-        int freq[26];
+        int freq[26] = {0};
 
-        for(int i=0; i<26; i++){
-            freq[i]=0;
-        }
+        // for(int i=0; i<26; i++){
+        //     freq[i]=0;
+        // }
 
         for(char ch: s){
             freq[ch-'a']++;
