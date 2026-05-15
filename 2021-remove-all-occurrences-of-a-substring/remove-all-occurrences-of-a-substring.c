@@ -1,32 +1,33 @@
 char* removeOccurrences(char* s, char* part) {
+    int n = strlen(s);
+    int m = strlen(part);
+    int currSize=0;
 
-    int pLen = strlen(part);
-    int sLen = strlen(s);
+    
 
-    char *res = (char*) malloc((sLen+1)*sizeof(char));
+    char* ans = (char*) malloc(n+1*sizeof(char));
 
-    int size=0;
+    for(int i=0; i<n; i++){
+        ans[currSize++] = s[i];
 
-    for(int i=0; i<sLen; i++){
-        res[size++] = s[i];
-
-        if(size>=pLen){
-            int match = 1;
-
-            for(int j=0; j<pLen; j++){
-                if(res[size-pLen+j] != part[j]){
-                    match = 0;
+        if(currSize>=m){
+            bool isMatch = true;
+            for(int i=0; i<m; i++){
+                if(ans[currSize-m+i]!=part[i]){
+                    isMatch = false;
                     break;
                 }
             }
 
-            if(match){
-                size -= pLen;
+            if(isMatch){
+                currSize-=m;
             }
         }
+
+        
     }
 
-    res[size] = '\0';
+    ans[currSize] = '\0';
 
-    return res;
+    return ans;
 }
